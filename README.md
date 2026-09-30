@@ -75,11 +75,11 @@ To rerun a case, open the `.dsco` in Fluent Meshing, regenerate the mesh, switch
 | Sketch | Purpose |
 |---|---|
 | `LiftDrag_V2/LiftDrag_V2.ino` | **Main force sketch.** Reads the two load cells (HX711) and the Pitot (MPXV7002DP), runs the two-point calibration (stored in EEPROM), tares, and streams lift, drag and airspeed |
-| `PressureSurvey_v2/PressureSurvey_v2.ino` | **Surface-pressure survey.** Zeroes the MPXV7002DP, then averages each manually selected tap and prints Δp |
-| `Lift_n_Drag/` | Legacy first version of the force sketch (superseded) |
-| `pressure_readings/` | Legacy pressure test sketch. It does not compile as-is (`delta_kPa` is undeclared) and is kept for history only |
+| `PressureSurvey/PressureSurvey.ino` | **Surface-pressure survey.** Zeroes the MPXV7002DP, then averages each manually selected tap and prints Δp |
+| `LiftDrag_V1/LiftDrag_V1.ino` | First version of the force sketch (superseded by V2) |
+| `PressureReadings/PressureReadings.ino` | Early pressure test sketch. It does not compile as-is (`delta_kPa` is undeclared) and is kept for history only |
 
-**MATLAB (`MATLAB Codes/`)**
+**MATLAB (`# MATLAB Scripts/`)**
 
 | Path | Produces |
 |---|---|
@@ -92,7 +92,6 @@ To rerun a case, open the `.dsco` in Fluent Meshing, regenerate the mesh, switch
 | `[Ahmed] CFD vs WT Plots/Ahmed_CFD_Oscillation_Handling.m` | Fixed-window averaging of the Ahmed monitor history → `ahmed_cfd_stats.csv` |
 | `Misc/NACA AoA=10 CFD Oscillating Data Analysis/AoA10_OscillationAverage.m` | Limit-cycle averaging (4 full cycles) of the stand-free +10° case |
 | `Misc/PressureAnalysis.m` | Early pressure-data processing script |
-| `Poster Plots/Poster_Plots.m` | Figures for the project poster (self-contained copy of its inputs) |
 
 The Fluent Cp exports in the MATLAB folders have a `.crash` extension. They are plain comma-separated text, and the name is just how Fluent saved them.
 
