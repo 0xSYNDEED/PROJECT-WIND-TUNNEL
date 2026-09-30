@@ -1,0 +1,13 @@
+.DS_Store
+Icon?
+desktop.ini
+~$*
+Documents/
+*.h5
+*.cas
+*.dat
+*_workflow_files/
+FM_*/
+*.trn
+*.bat
+*.asv
