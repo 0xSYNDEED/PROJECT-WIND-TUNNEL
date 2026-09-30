@@ -3,7 +3,9 @@
 % Prints a drag-coefficient comparison: WT vs CFD with stand / without stand.
 % Sized for A4, 2.5 cm margins (text width 16 cm): include with width=\textwidth.
 % Saves transparent PNG (600 dpi) + transparent vector PDF.
-% WT uncertainty:  dCp = sqrt((dp/q)^2 + (Cp*2dU/U)^2),  dCd = sqrt((dD/(q*A))^2 + (Cd*2dU/U)^2)
+% WT uncertainty:  dCp = sqrt((dp/q)^2 + (Cp*2*dU_Cp/U)^2),  dCd = sqrt((dD/(q*A))^2 + (Cd*2*dU_Cd/U)^2)
+%   dU_Cp = 1.25 m/s: taps read at nominal speed; the +/-1.25 m/s speed fluctuation is not tracked
+%   dU_Cd = 0.5 m/s:  drag point taken with the Pitot-measured speed
 % Requires MATLAB R2020b+.
 clear; clc; close all;
 
@@ -25,7 +27,7 @@ Cd_stand_sd = 0.0035;   % 1 SD of the oscillation
 Cd_nostand  = 0.4431;   % model only, U = 17.5 m/s (from D = 0.123 N)
 
 % Uncertainty
-U = 16;   dU = 1.25;   rho = 1.225;   A = 0.00148;   dp = 4.9;   dD_g = 3;
+U = 16;   dU_Cp = 1.25;   dU_Cd = 0.5;   rho = 1.225;   A = 0.00148;   dp = 4.9;   dD_g = 3;
 
 % Report style
 FS = 10;   LW = 1.5;   MS = 6;   AXLW = 0.8;
@@ -43,10 +45,10 @@ xt = S.x_L(isTap);   mt = S.Mean(isTap);   st = S.StdDev(isTap);
 
 Wcp  = sortrows(readtable(wtFile, 'Sheet', 'Ahmed_Cp', 'UseExcel', false), 'x_L');
 Wf   = readtable(wtFile, 'Sheet', 'Ahmed_Forces', 'UseExcel', false);
-q    = 0.5*rho*U^2;   dq_q = 2*dU/U;
-dCp  = sqrt((dp/q)^2 + (Wcp.Cp*dq_q).^2);
+q    = 0.5*rho*U^2;   dqq_Cp = 2*dU_Cp/U;   dqq_Cd = 2*dU_Cd/U;
+dCp  = sqrt((dp/q)^2 + (Wcp.Cp*dqq_Cp).^2);
 cdWT = Wf.Cd(1);
-dCd  = sqrt((dD_g/1000*9.81/(q*A))^2 + (cdWT*dq_q)^2);
+dCd  = sqrt((dD_g/1000*9.81/(q*A))^2 + (cdWT*dqq_Cd)^2);
 
 %% ---------------- Figure ----------------
 fig = figure('Color', 'w', 'Units', 'centimeters', 'Position', [2 2 16 9.5]);

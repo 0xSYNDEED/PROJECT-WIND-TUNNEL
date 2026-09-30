@@ -111,7 +111,7 @@ void loop() {
   // 3. Convert voltage to pressure
   float deltaP_kPa = deltaV / actualSensitivity;
 
-  float pressure_Pa = delta_kPa*1000;
+  float pressure_Pa = deltaP_kPa * 1000.0;          // signed tap pressure vs. reference port
   float abs_pressure_Pa = fabs(deltaP_kPa * 1000.0);
 
   // 4. Calculate velocity from absolute pressure
@@ -137,7 +137,7 @@ void loop() {
   // 6. Local velocity ratio from Cp
   // -------------------------------------------------
 
-  float velocityRatio = sqrt(1.0 - Cp);
+  float velocityRatio = (Cp < 1.0) ? sqrt(1.0 - Cp) : 0.0;   // avoid NaN when Cp >= 1
 
   // -------------------------------------------------
   // 7. Output
@@ -147,7 +147,7 @@ void loop() {
   Serial.print(V_out, 4);
   Serial.print(" V  |  ");
 
-  Serial.print("Dynamic Pressure: ");
+  Serial.print("Pressure: ");
   Serial.print(pressure_Pa, 1);
   Serial.print(" Pa  |  ");
 

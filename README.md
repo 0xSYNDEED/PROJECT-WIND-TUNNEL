@@ -75,9 +75,9 @@ To rerun a case, open the `.dsco` in Fluent Meshing, regenerate the mesh, switch
 | Sketch | Purpose |
 |---|---|
 | `LiftDrag_V2/LiftDrag_V2.ino` | **Main force sketch.** Reads the two load cells (HX711) and the Pitot (MPXV7002DP), runs the two-point calibration (stored in EEPROM), tares, and streams lift, drag and airspeed |
-| `PressureSurvey/PressureSurvey.ino` | **Surface-pressure survey.** Zeroes the MPXV7002DP, then averages each manually selected tap and prints Δp |
 | `LiftDrag_V1/LiftDrag_V1.ino` | First version of the force sketch (superseded by V2) |
-| `PressureReadings/PressureReadings.ino` | Early pressure test sketch. It does not compile as-is (`delta_kPa` is undeclared) and is kept for history only |
+| `PressureReadings/PressureReadings.ino` | **Surface-pressure sketch used for all reported Cp data.** Zeroes the MPXV7002DP with the fan off (mean of 100 samples), measures a reference Pitot pressure, then streams the tap pressure (mean of 20 samples per line) as each tap is connected by hand. The reported Cp values are the tap pressure divided by the dynamic pressure at the nominal test speed; the sketch's own printed Cp column (ratio to the start-of-run Pitot reading) was not used |
+| `PressureSurvey/PressureSurvey.ino` | Later rewrite of the survey sketch (guided tap-by-tap sequence, 1000-sample averages, CSV row per tap). It was **never used** for the reported data, but is kept as the recommended version for future surveys |
 
 **MATLAB (`# MATLAB Scripts/`)**
 
@@ -88,7 +88,7 @@ To rerun a case, open the `.dsco` in Fluent Meshing, regenerate the mesh, switch
 | `[NACA] CFD vs WT Plots/NACA_Cp_Plots.m` | NACA 4418 Cp distributions, tunnel taps vs CFD |
 | `[NACA] CFD vs WT Plots/NACA_CFD_Pressure_Plotter.m` | Quick plot of a single Fluent Cp export |
 | `[NACA] CFD vs WT Plots/CFD_Results.xlsx` | CFD force coefficients (with / without stand) |
-| `[Ahmed] CFD vs WT Plots/Ahmed_Plots.m` | Ahmed body Cp and Cd, tunnel vs CFD |
+| `[Ahmed] CFD vs WT Plots/Ahmed_Plots.m` | Ahmed body Cp and Cd, tunnel vs CFD (speed uncertainty ±1.25 m/s for Cp, taken at nominal speed; ±0.5 m/s for the Pitot-measured Cd) |
 | `[Ahmed] CFD vs WT Plots/Ahmed_CFD_Oscillation_Handling.m` | Fixed-window averaging of the Ahmed monitor history → `ahmed_cfd_stats.csv` |
 | `Misc/NACA AoA=10 CFD Oscillating Data Analysis/AoA10_OscillationAverage.m` | Limit-cycle averaging (4 full cycles) of the stand-free +10° case |
 | `Misc/PressureAnalysis.m` | Early pressure-data processing script |
