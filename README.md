@@ -14,7 +14,7 @@ A low-cost wind tunnel with a 160 × 160 × 340 mm test section (16–18 m/s, Re
 |---|---|
 | `[Docs] Wind Tunnel/` | Final report (PDF) and poster |
 | `[CAD] Wind Tunnel/` | SolidWorks parts and assemblies of the tunnel, balance, models, Pitot stand and smoke rake; DXF files for laser cutting. Parts marked *(Obsolete)* were not used in the final tests |
-| `[CFD] Wind Tunnel/` | Fluent project (`.flprj`) and meshing-workflow (`.dsco`) files, monitor histories (`.out`), simulated geometry (`.STEP`), and Cp exports, for every case with and without the stand |
+| `[CFD] Wind Tunnel/` | For every case, with and without the stand: Ansys Discovery geometry prepared for meshing, with named selections (`.dsco`); Fluent project files (`.flprj`); monitor histories (`.out`); simulated geometry (`.STEP`); and Cp exports |
 | `[Codes] Wind Tunnel/` | Arduino sketches and MATLAB scripts (below) |
 
 **Arduino** (Mega 2560):
@@ -29,16 +29,19 @@ A low-cost wind tunnel with a 160 × 160 × 340 mm test section (16–18 m/s, Re
 ## Software
 
 - **SolidWorks 2026** for the CAD. Use the STEP/DXF files with older versions.
-- **Ansys Fluent 2026 R1** (Student) for the CFD.
+- **Ansys Student 2026 R1**: Discovery for geometry preparation (`.dsco`), and Fluent in Meshing mode (mesh) and Solution mode (solver).
 - **MATLAB R2020b or newer.** MATLAB Online works, and no toolboxes are needed.
 - **Arduino IDE 2.x** with the `HX711` library by bogde.
 
 ## Not included
 
-- **Fluent case, data and mesh files** (`*.h5`, about 12 GB): regenerate them from the `.dsco` and `.flprj` files.
+- **Fluent mesh files** (`.msh.h5`, about 100 MB each), which hold both the mesh and the meshing workflow and open in Fluent's Meshing mode. Most of them exceed GitHub's 100 MB file limit.
+- **Fluent case and data files** (`.cas.h5`, `.dat.h5`). With the mesh files, they total about 12 GB.
 - **Report source:** only the report PDF is included.
 - **3D-print files (STL/3MF):** export them from the SolidWorks parts.
 - **Temporary and log files.**
+
+To regenerate the mesh, case and data files, import the `.dsco` geometry in Fluent's Meshing mode and use the settings in the report (Table 2.3).
 
 ## Citation
 
