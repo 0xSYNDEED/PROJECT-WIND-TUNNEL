@@ -43,6 +43,10 @@ A low-cost wind tunnel with a 160 × 160 × 340 mm test section (16–18 m/s, Re
 
 To regenerate the mesh, case and data files, import the `.dsco` geometry in Fluent's Meshing mode and use the settings in the report (Table 2.3).
 
+## License
+
+Code (Arduino firmware and MATLAB scripts) is released under the MIT License (see `LICENSE`). CAD files, data, figures and documents are released under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
+
 ## Citation
 
 A. M. Syndeed, H. K. Ratul, Mubasshira, B. D. Badhon, *Design, Instrumentation and CFD Validation of a Miniature Open-Circuit Subsonic Wind Tunnel for Low-Reynolds-Number Aerodynamics*, ME 366 Project Report, BUET, 2026.
